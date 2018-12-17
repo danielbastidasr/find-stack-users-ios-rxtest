@@ -13,7 +13,6 @@ protocol StackUsersViewModeling {
     var cellDidSelect: PublishSubject<Int> { get }
     var searchText: PublishSubject<String> { get }
     
-    // MARK: -
     func initialise()
     
     // MARK: - Output
@@ -23,11 +22,9 @@ protocol StackUsersViewModeling {
 
 class StackUsersViewModel: StackUsersViewModeling {
     
-    // MARK: - Input
     var cellDidSelect: PublishSubject<Int> = PublishSubject<Int>()
     var searchText: PublishSubject<String> = PublishSubject<String>()
     
-    // MARK: - Output
     var cellModels: Observable<[StackUserCellViewModeling]> = Observable.never()
     var userSelected: Observable<StackUser> = Observable.never()
     
@@ -41,7 +38,7 @@ class StackUsersViewModel: StackUsersViewModeling {
         
         cellModels = searchText.flatMap {[unowned self] (wordSearch) -> Observable<[StackUserCellViewModeling]> in
             
-            if(wordSearch != ""){
+            if(wordSearch != "" && wordSearch.count > 5){
                 return self.stackUsers.getUsersByName(with: wordSearch).map {
                     (users) -> [StackUserCellViewModeling] in
                         var cells:[StackUserCellViewModeling] = []

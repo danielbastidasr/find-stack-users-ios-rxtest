@@ -15,6 +15,5 @@ class SearchRequest: APIRequest {
     init(wordSearch: String) {
         parameters["inname"] = wordSearch
         parameters["site"] = "stackoverflow"
-        parameters["key"] = "16gkLtRgAwRns)8aRNT8UA(("
     }
 }
